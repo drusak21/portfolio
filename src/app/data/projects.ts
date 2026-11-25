@@ -155,13 +155,15 @@ export const OTHER_PROJECTS: OtherProject[] = [
     links: [{ label: 'GitHub', url: 'https://github.com/drusak21/G2-Evaluation-Manager' }],
   },
   {
-    title: 'Text File to UI',
+    title: 'BidBuddy',
     description: {
-      en: 'Small C# experiment that builds a user interface from a plain text file definition.',
-      hr: 'Mali C# eksperiment koji gradi korisničko sučelje iz definicije u tekstualnoj datoteci.',
+      en: 'Desktop auction platform (team of 4). I built login, registration & user roles, seller reviews and user profile management.',
+      hr: 'Desktop aukcijska platforma (tim od 4 člana). Izradio sam prijavu, registraciju i korisničke uloge, recenzije prodavača te upravljanje korisničkim profilom.',
     },
-    stack: ['C#', '.NET'],
-    links: [{ label: 'GitHub', url: 'https://github.com/drusak21/text_file_to_ui' }],
+    stack: ['C#', 'WPF', '.NET Framework 4.8', 'SQL'],
+    links: [
+      { label: 'GitHub (private)', url: 'https://github.com/foivz/tkipp24-projects-kjacmenja-tpapic-jmojzes-drusak' },
+    ],
   },
 ];
 

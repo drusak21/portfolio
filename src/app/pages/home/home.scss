@@ -244,6 +244,11 @@
     opacity: 1;
   }
 
+  // Odd number of featured projects: last card spans the full row.
+  &:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
