@@ -1,0 +1,91 @@
+@if (project(); as p) {
+  <article class="detail">
+    <header class="detail__hero">
+      <div class="detail__glow" aria-hidden="true"></div>
+      <div class="container">
+        <a class="back" routerLink="/" fragment="projects">
+          <app-icon name="arrowLeft" /> {{ i18n.t('projects.back') }}
+        </a>
+        <p class="eyebrow" appReveal>{{ i18n.pick(p.context) }}</p>
+        <h1 class="detail__title" appReveal [revealDelay]="80">{{ p.title }}</h1>
+        <p class="detail__tagline" appReveal [revealDelay]="160">{{ i18n.pick(p.tagline) }}</p>
+
+        <dl class="meta" appReveal [revealDelay]="240">
+          <div>
+            <dt>{{ i18n.t('projects.role') }}</dt>
+            <dd>{{ i18n.pick(p.role) }}</dd>
+          </div>
+          <div>
+            <dt>{{ i18n.t('projects.context') }}</dt>
+            <dd>{{ i18n.pick(p.context) }}</dd>
+          </div>
+          <div class="meta__stack">
+            <dt>{{ i18n.t('projects.stack') }}</dt>
+            <dd>
+              <ul class="tags">
+                @for (s of p.stack; track s) {
+                  <li class="tag">{{ s }}</li>
+                }
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="section section--tight">
+      <div class="container overview">
+        <h2 class="overview__label" appReveal>{{ i18n.t('projects.overview') }}</h2>
+        <div appReveal [revealDelay]="80">
+          <p class="overview__text">{{ i18n.pick(p.overview) }}</p>
+          @if (p.note) {
+            <p class="note">{{ i18n.pick(p.note) }}</p>
+          }
+          @if (p.repo) {
+            <a class="btn" [href]="p.repo" target="_blank" rel="noopener">
+              <app-icon name="github" /> {{ i18n.t('projects.repo') }}
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head" appReveal>
+          <p class="eyebrow">{{ i18n.t('projects.myWork') }}</p>
+        </div>
+        <ol class="contribs">
+          @for (c of p.contributions; track c.title.en; let i = $index) {
+            <li class="card card--hover contrib" appReveal [revealDelay]="(i % 2) * 100">
+              <div class="contrib__head">
+                <span class="contrib__num">0{{ i + 1 }}</span>
+                @if (c.badge) {
+                  <span class="contrib__badge">{{ c.badge }}</span>
+                }
+              </div>
+              <h3>{{ i18n.pick(c.title) }}</h3>
+              <p>{{ i18n.pick(c.text) }}</p>
+            </li>
+          }
+        </ol>
+      </div>
+    </section>
+
+    @if (next(); as n) {
+      <section class="container next-wrap">
+        <a class="card card--hover next" [routerLink]="['/projects', n.slug]">
+          <span class="next__label">{{ i18n.t('projects.next') }}</span>
+          <span class="next__title">{{ n.title }} <app-icon name="arrow" /></span>
+        </a>
+      </section>
+    }
+  </article>
+} @else {
+  <section class="section container missing">
+    <h1>{{ i18n.t('projects.notFound') }}</h1>
+    <a class="btn btn--primary" routerLink="/" fragment="projects">
+      <app-icon name="arrowLeft" /> {{ i18n.t('projects.back') }}
+    </a>
+  </section>
+}

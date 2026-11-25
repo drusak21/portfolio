@@ -1,0 +1,38 @@
+<nav class="nav container" aria-label="Main">
+  <a class="brand" routerLink="/" fragment="home" (click)="close()" [attr.aria-label]="i18n.t('nav.home')">
+    <span class="brand__mark">DR</span>
+    <span class="brand__name">{{ profile.name }}</span>
+  </a>
+
+  <ul class="links" id="nav-links">
+    @for (item of items; track item.fragment) {
+      <li>
+        <a routerLink="/" [fragment]="item.fragment" (click)="close()">{{ i18n.t(item.key) }}</a>
+      </li>
+    }
+  </ul>
+
+  <div class="actions">
+    <button
+      type="button"
+      class="lang"
+      (click)="i18n.toggle()"
+      [attr.aria-label]="i18n.t('nav.lang')"
+    >
+      <span [class.active]="i18n.lang() === 'en'">EN</span>
+      <span class="sep">/</span>
+      <span [class.active]="i18n.lang() === 'hr'">HR</span>
+    </button>
+
+    <button
+      type="button"
+      class="burger"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="open()"
+      aria-controls="nav-links"
+      [attr.aria-label]="i18n.t('nav.menu')"
+    >
+      <app-icon [name]="open() ? 'close' : 'menu'" />
+    </button>
+  </div>
+</nav>

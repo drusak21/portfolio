@@ -1,0 +1,175 @@
+<!-- ============ HERO ============ -->
+<section id="home" class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__grid"></div>
+    <div class="hero__glow"></div>
+  </div>
+
+  <div class="container hero__inner">
+    <p class="status" appReveal>
+      <span class="status__dot"></span>{{ i18n.t('hero.status') }}
+    </p>
+
+    <h1 class="hero__title" appReveal [revealDelay]="80">
+      <span class="hero__greet">{{ i18n.t('hero.greeting') }}</span>
+      {{ profile.name }}<span class="accent">.</span>
+    </h1>
+
+    <p class="hero__role" appReveal [revealDelay]="160">
+      <span class="mono">&lt;</span>{{ i18n.t('hero.title') }}<span class="mono"> /&gt;</span>
+    </p>
+
+    <p class="hero__lead" appReveal [revealDelay]="240">{{ i18n.t('hero.lead') }}</p>
+
+    <div class="hero__cta" appReveal [revealDelay]="320">
+      <a class="btn btn--primary" routerLink="/" fragment="projects">
+        {{ i18n.t('hero.cta.projects') }} <app-icon name="arrow" />
+      </a>
+      <a class="btn" routerLink="/" fragment="contact">{{ i18n.t('hero.cta.contact') }}</a>
+    </div>
+  </div>
+
+  <a class="scroll-hint" routerLink="/" fragment="about" aria-hidden="true" tabindex="-1">
+    <span>{{ i18n.t('hero.scroll') }}</span>
+    <span class="scroll-hint__line"></span>
+  </a>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section">
+  <div class="container about">
+    <div class="about__head" appReveal>
+      <p class="eyebrow">{{ i18n.t('about.eyebrow') }}</p>
+      <h2 class="section-title">{{ i18n.t('about.title') }}</h2>
+    </div>
+    <div class="about__body">
+      <p appReveal>{{ i18n.t('about.p1') }}</p>
+      <p appReveal [revealDelay]="80">{{ i18n.t('about.p2') }}</p>
+      <ul class="facts" appReveal [revealDelay]="160">
+        <li>{{ i18n.t('about.stat.platforms') }}</li>
+        <li>{{ i18n.t('about.stat.focus') }}</li>
+        <li>{{ i18n.t('about.stat.team') }}</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="section section--alt">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <p class="eyebrow">{{ i18n.t('skills.eyebrow') }}</p>
+      <h2 class="section-title">{{ i18n.t('skills.title') }}</h2>
+      <p class="section-lead">{{ i18n.t('skills.lead') }}</p>
+    </div>
+
+    <div class="skills">
+      @for (group of skills; track group.key; let i = $index) {
+        <article class="card card--hover skill" appReveal [revealDelay]="i * 80">
+          <div class="skill__icon"><app-icon [name]="skillIcons[group.key]" /></div>
+          <h3>{{ i18n.t(group.key) }}</h3>
+          <ul class="tags">
+            @for (item of group.items; track item) {
+              <li class="tag">{{ item }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-head" appReveal>
+      <p class="eyebrow">{{ i18n.t('projects.eyebrow') }}</p>
+      <h2 class="section-title">{{ i18n.t('projects.title') }}</h2>
+      <p class="section-lead">{{ i18n.t('projects.lead') }}</p>
+    </div>
+
+    <div class="featured">
+      @for (p of featured; track p.slug; let i = $index) {
+        <a class="card card--hover feature" [routerLink]="['/projects', p.slug]" appReveal [revealDelay]="i * 100">
+          <div class="feature__top">
+            <span class="feature__index">0{{ i + 1 }}</span>
+            <span class="feature__badge">{{ i18n.t('projects.featured') }}</span>
+          </div>
+          <h3 class="feature__title">{{ p.title }}</h3>
+          <p class="feature__role">{{ i18n.pick(p.role) }} · {{ i18n.pick(p.context) }}</p>
+          <p class="feature__tagline">{{ i18n.pick(p.tagline) }}</p>
+
+          <ul class="feature__contrib">
+            @for (c of p.contributions; track c.title.en) {
+              <li><span class="mono accent">{{ c.badge }}</span> {{ i18n.pick(c.title) }}</li>
+            }
+          </ul>
+
+          <div class="feature__foot">
+            <ul class="tags">
+              @for (s of p.stack; track s) {
+                <li class="tag">{{ s }}</li>
+              }
+            </ul>
+            <span class="feature__link">{{ i18n.t('projects.details') }} <app-icon name="arrow" /></span>
+          </div>
+        </a>
+      }
+    </div>
+
+    <h3 class="more-title" appReveal>{{ i18n.t('projects.more') }}</h3>
+    <div class="others">
+      @for (p of others; track p.title; let i = $index) {
+        <article class="card card--hover other" appReveal [revealDelay]="i * 80">
+          <div class="other__icon"><app-icon name="folder" /></div>
+          <h4>{{ p.title }}</h4>
+          <p>{{ i18n.pick(p.description) }}</p>
+          <ul class="tags">
+            @for (s of p.stack; track s) {
+              <li class="tag">{{ s }}</li>
+            }
+          </ul>
+          <div class="other__links">
+            @for (l of p.links; track l.url) {
+              <a [href]="l.url" target="_blank" rel="noopener">
+                <app-icon name="github" /> {{ l.label }}
+              </a>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section section--alt">
+  <div class="container contact" appReveal>
+    <p class="eyebrow">{{ i18n.t('contact.eyebrow') }}</p>
+    <h2 class="contact__title">{{ i18n.t('contact.title') }}</h2>
+    <p class="section-lead">{{ i18n.t('contact.lead') }}</p>
+
+    <div class="contact__email">
+      <a [href]="'mailto:' + profile.email" class="btn btn--primary">
+        <app-icon name="mail" /> {{ profile.email }}
+      </a>
+      <button type="button" class="btn" (click)="copyEmail()" [attr.aria-live]="'polite'">
+        <app-icon [name]="copied() ? 'check' : 'copy'" />
+        {{ copied() ? i18n.t('contact.copied') : i18n.t('contact.copy') }}
+      </button>
+    </div>
+
+    <div class="contact__links">
+      <a class="card card--hover social" [href]="profile.github" target="_blank" rel="noopener">
+        <app-icon name="github" />
+        <span><strong>GitHub</strong><small>&#64;{{ profile.githubHandle }}</small></span>
+        <app-icon name="external" class="social__ext" />
+      </a>
+      <a class="card card--hover social" [href]="profile.linkedin" target="_blank" rel="noopener">
+        <app-icon name="linkedin" />
+        <span><strong>LinkedIn</strong><small>{{ profile.name }}</small></span>
+        <app-icon name="external" class="social__ext" />
+      </a>
+    </div>
+  </div>
+</section>
